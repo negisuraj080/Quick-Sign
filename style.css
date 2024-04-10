@@ -35,10 +35,12 @@ margin: 20px 0 20px 0;
     width: 50%;
 }
 
+
 @media only screen and (max-width: 400px) {
   .canvas {
-    width: 800px;
-    height: 200px;
+    background-color: black;
+    height: 475px;
+    width: 350px;
   }
 
   .top {
@@ -56,11 +58,38 @@ margin: 20px 0 20px 0;
   .top,
   .bottom {
     display: flex;
-    flex-direction:row;
+    flex-direction: column;
     margin: 0px;
   }
 
   .block > p {
     margin: 5px;
+  }
+}
+
+
+
+
+@media only screen and (max-width: 893px) and (orientation: landscape) {
+  .canvas {
+    background-color: red;
+    height: 243px;
+    width: 700px;
+  }
+
+  .bottom > button {
+    margin: 0px;
+  }
+
+  .block > p {
+    font-size: 14px;
+  }
+
+  .top {
+    margin: 0px;
+  }
+
+  .bottom {
+    margin: 0px;
   }
 }
