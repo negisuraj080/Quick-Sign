@@ -72,8 +72,8 @@ margin: 20px 0 20px 0;
 
 @media only screen and (max-width: 893px) and (orientation: landscape) {
   .canvas {
-   
-    height: 200px;
+    background-color: red;
+    height: 180px;
     width: 700px;
   }
 
@@ -91,5 +91,11 @@ margin: 20px 0 20px 0;
 
   .bottom {
     margin: 0px;
+  }
+
+  #fontSizePicker {
+    margin: 0px;
+    height: 27px;
+    padding: 0px;
   }
 }
