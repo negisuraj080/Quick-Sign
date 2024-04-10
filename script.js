@@ -94,12 +94,11 @@ canvas.addEventListener("touchstart", (event) => {
 
 canvas.addEventListener("touchmove", (event) => {
   if (isDrawing) {
-    let touch = event.touches[0];
     let rect = canvas.getBoundingClientRect();
     let offsetX = rect.left + window.pageXOffset;
     let offsetY = rect.top + window.pageYOffset;
-    let x = touch.clientX - offsetX;
-    let y = touch.clientY - offsetY;
+    let x = event.touches[0].clientX - offsetX;
+    let y = event.touches[0].clientY - offsetY;
 
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
