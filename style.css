@@ -39,7 +39,7 @@ margin: 20px 0 20px 0;
 @media only screen and (max-width: 400px) {
   .canvas {
    
-    height: 465px;
+    height: 410px;
     width: 350px;
   }
 
@@ -73,7 +73,7 @@ margin: 20px 0 20px 0;
 @media only screen and (max-width: 893px) and (orientation: landscape) {
   .canvas {
    
-    height: 233px;
+    height: 200px;
     width: 700px;
   }
 
