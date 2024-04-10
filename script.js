@@ -8,6 +8,13 @@ const retrieveButton = document.getElementById("retrieveButton");
 
 const ctx = canvas.getContext("2d");
 
+function canvasBgWhite() {
+  ctx.fillStyle = 'white';
+  ctx.fillRect(0, 0, 800, 500);
+}
+
+canvasBgWhite();
+
 colorPicker.addEventListener("change", (event) => {
   ctx.fillStyle = event.target.value;
   ctx.strokeStyle = event.target.value;
@@ -15,6 +22,7 @@ colorPicker.addEventListener("change", (event) => {
 
 canvasColor.addEventListener("change", (event) => {
   ctx.fillStyle = event.target.value;
+  console.log(event.target.value);
   ctx.fillRect(0, 0, 800, 500);
 });
 
@@ -24,6 +32,7 @@ canvas.addEventListener("mousedown", (event) => {
   lastY = event.offsetY;
 });
 
+isDrawing = false;
 canvas.addEventListener("mousemove", (event) => {
   if (isDrawing) {
     ctx.beginPath();
@@ -40,10 +49,6 @@ canvas.addEventListener("mouseup", () => {
   isDrawing = false;
 });
 
-canvasColor.addEventListener("change", (e) => {
-  ctx.fillStyle = e.target.value;
-  ctx.fillRect(0, 0, 800, 500);
-});
 
 fontSizePicker.addEventListener("change", (e) => {
   ctx.lineWidth = e.target.value;
@@ -51,6 +56,7 @@ fontSizePicker.addEventListener("change", (e) => {
 
 clearButton.addEventListener("click", () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  canvasBgWhite();
 });
 
 saveButton.addEventListener("click", () => {
@@ -75,24 +81,21 @@ retrieveButton.addEventListener("click", () => {
   }
 });
 
-//touch events
+
+// Consolidated touch event listeners
 canvas.addEventListener("touchstart", (event) => {
   isDrawing = true;
   let rect = canvas.getBoundingClientRect();
-  let scaleX = canvas.width / rect.width;
-  let scaleY = canvas.height / rect.height;
-  lastX = (event.touches[0].clientX - rect.left) * scaleX;
-  lastY = (event.touches[0].clientY - rect.top) * scaleY;
+  lastX = event.touches[0].clientX - rect.left - canvas.clientLeft;
+  lastY = event.touches[0].clientY - rect.top - canvas.clientTop;
 });
 
 canvas.addEventListener("touchmove", (event) => {
   if (isDrawing) {
     let touch = event.touches[0];
     let rect = canvas.getBoundingClientRect();
-    let scaleX = canvas.width / rect.width;
-    let scaleY = canvas.height / rect.height;
-    let x = (touch.clientX - rect.left) * scaleX;
-    let y = (touch.clientY - rect.top) * scaleY;
+    let x = touch.clientX - rect.left - canvas.clientLeft;
+    let y = touch.clientY - rect.top - canvas.clientTop;
 
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
