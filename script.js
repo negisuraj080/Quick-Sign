@@ -77,16 +77,17 @@ retrieveButton.addEventListener("click", () => {
 
 canvas.addEventListener("touchstart", (event) => {
   isDrawing = true;
-  lastX = event.touches[0].clientX - canvas.offsetLeft;
-  lastY = event.touches[0].clientY - canvas.offsetTop;
+  let rect = canvas.getBoundingClientRect();
+  lastX = event.touches[0].clientX - rect.left - canvas.clientLeft;
+  lastY = event.touches[0].clientY - rect.top - canvas.clientTop;
 });
 
 canvas.addEventListener("touchmove", (event) => {
   if (isDrawing) {
     let touch = event.touches[0];
     let rect = canvas.getBoundingClientRect();
-    let x = touch.clientX - rect.left;
-    let y = touch.clientY - rect.top;
+    let x = touch.clientX - rect.left - canvas.clientLeft;
+    let y = touch.clientY - rect.top - canvas.clientTop;
 
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
@@ -97,7 +98,6 @@ canvas.addEventListener("touchmove", (event) => {
     lastY = y;
   }
 });
-
 
 canvas.addEventListener("touchend", () => {
   isDrawing = false;
