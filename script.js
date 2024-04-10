@@ -84,8 +84,9 @@ canvas.addEventListener("touchstart", (event) => {
 canvas.addEventListener("touchmove", (event) => {
   if (isDrawing) {
     let touch = event.touches[0];
-    let x = touch.clientX - canvas.offsetLeft;
-    let y = touch.clientY - canvas.offsetTop;
+    let rect = canvas.getBoundingClientRect();
+    let x = touch.clientX - rect.left;
+    let y = touch.clientY - rect.top;
 
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
@@ -96,6 +97,7 @@ canvas.addEventListener("touchmove", (event) => {
     lastY = y;
   }
 });
+
 
 canvas.addEventListener("touchend", () => {
   isDrawing = false;
