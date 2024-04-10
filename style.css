@@ -37,7 +37,9 @@ margin: 20px 0 20px 0;
 
 @media only screen and (max-width: 400px) {
     .canvas{
-        height: 180px;
+        width: 300px;
+        height: 800px;
+
     }
 
     .top{
