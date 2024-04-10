@@ -86,16 +86,20 @@ retrieveButton.addEventListener("click", () => {
 canvas.addEventListener("touchstart", (event) => {
   isDrawing = true;
   let rect = canvas.getBoundingClientRect();
-  lastX = event.touches[0].clientX - rect.left - canvas.clientLeft;
-  lastY = event.touches[0].clientY - rect.top - canvas.clientTop;
+  let offsetX = rect.left + window.pageXOffset;
+  let offsetY = rect.top + window.pageYOffset;
+  lastX = event.touches[0].clientX - offsetX;
+  lastY = event.touches[0].clientY - offsetY;
 });
 
 canvas.addEventListener("touchmove", (event) => {
   if (isDrawing) {
     let touch = event.touches[0];
     let rect = canvas.getBoundingClientRect();
-    let x = touch.clientX - rect.left - canvas.clientLeft;
-    let y = touch.clientY - rect.top - canvas.clientTop;
+    let offsetX = rect.left + window.pageXOffset;
+    let offsetY = rect.top + window.pageYOffset;
+    let x = touch.clientX - offsetX;
+    let y = touch.clientY - offsetY;
 
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
