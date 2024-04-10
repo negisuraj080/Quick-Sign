@@ -35,3 +35,21 @@ margin: 20px 0 20px 0;
     width: 50%;
 }
 
+@media only screen and (max-width: 400px) {
+    .canvas{
+        height: 245px;
+    }
+
+    .top{
+        margin: 0px;
+    }
+
+    .top>.block {
+        margin: 0px 10px 0px 10px;
+    }
+
+    .btn{
+        margin: 0px 10px 0px 10px;
+    }
+  }
+
