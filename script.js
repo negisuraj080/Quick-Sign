@@ -75,19 +75,24 @@ retrieveButton.addEventListener("click", () => {
   }
 });
 
+//touch events
 canvas.addEventListener("touchstart", (event) => {
   isDrawing = true;
   let rect = canvas.getBoundingClientRect();
-  lastX = event.touches[0].clientX - rect.left - canvas.clientLeft;
-  lastY = event.touches[0].clientY - rect.top - canvas.clientTop;
+  let scaleX = canvas.width / rect.width;
+  let scaleY = canvas.height / rect.height;
+  lastX = (event.touches[0].clientX - rect.left) * scaleX;
+  lastY = (event.touches[0].clientY - rect.top) * scaleY;
 });
 
 canvas.addEventListener("touchmove", (event) => {
   if (isDrawing) {
     let touch = event.touches[0];
     let rect = canvas.getBoundingClientRect();
-    let x = touch.clientX - rect.left - canvas.clientLeft;
-    let y = touch.clientY - rect.top - canvas.clientTop;
+    let scaleX = canvas.width / rect.width;
+    let scaleY = canvas.height / rect.height;
+    let x = (touch.clientX - rect.left) * scaleX;
+    let y = (touch.clientY - rect.top) * scaleY;
 
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
