@@ -91,15 +91,17 @@ const offsetY = rect.top;
 // Event listeners for touch events
 canvas.addEventListener("touchstart", (event) => {
   isDrawing = true;
-  lastX = event.touches[0].clientX - offsetX;
-  lastY = event.touches[0].clientY - offsetY;
+  let rect = canvas.getBoundingClientRect();
+  lastX = event.touches[0].clientX - rect.left;
+  lastY = event.touches[0].clientY - rect.top;
 });
 
 canvas.addEventListener("touchmove", (event) => {
   if (isDrawing) {
     let touch = event.touches[0];
-    let x = touch.clientX - offsetX;
-    let y = touch.clientY - offsetY;
+    let rect = canvas.getBoundingClientRect();
+    let x = touch.clientX - rect.left;
+    let y = touch.clientY - rect.top;
 
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
@@ -114,4 +116,5 @@ canvas.addEventListener("touchmove", (event) => {
 canvas.addEventListener("touchend", () => {
   isDrawing = false;
 });
+
 
