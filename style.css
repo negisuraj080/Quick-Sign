@@ -73,7 +73,7 @@ margin: 20px 0 20px 0;
 @media only screen and (max-width: 893px) and (orientation: landscape) {
   .canvas {
     background-color: red;
-    height: 180px;
+    height: 170px;
     width: 700px;
   }
 
@@ -98,4 +98,9 @@ margin: 20px 0 20px 0;
     height: 27px;
     padding: 0px;
   }
+
+  .top > .block {
+    margin: 0px;
+}
+
 }
