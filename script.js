@@ -82,29 +82,28 @@ retrieveButton.addEventListener("click", () => {
 });
 
 
-// Consolidated touch event listeners
-// Function to calculate offsets based on current canvas dimensions and positioning
-function calculateOffsets(event) {
+// Function to calculate touch event coordinates relative to the canvas
+function calculateCanvasCoordinates(event) {
   let rect = canvas.getBoundingClientRect();
-  let offsetX = rect.left + window.pageXOffset;
-  let offsetY = rect.top + window.pageYOffset;
+  let scaleX = canvas.width / rect.width;
+  let scaleY = canvas.height / rect.height;
   return {
-    x: event.clientX - offsetX,
-    y: event.clientY - offsetY
+    x: (event.clientX - rect.left) * scaleX,
+    y: (event.clientY - rect.top) * scaleY
   };
 }
 
 // Consolidated touch event listeners
 canvas.addEventListener("touchstart", (event) => {
   isDrawing = true;
-  let { x, y } = calculateOffsets(event.touches[0]);
+  let { x, y } = calculateCanvasCoordinates(event.touches[0]);
   lastX = x;
   lastY = y;
 });
 
 canvas.addEventListener("touchmove", (event) => {
   if (isDrawing) {
-    let { x, y } = calculateOffsets(event.touches[0]);
+    let { x, y } = calculateCanvasCoordinates(event.touches[0]);
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
     ctx.lineTo(x, y);
@@ -117,3 +116,24 @@ canvas.addEventListener("touchmove", (event) => {
 canvas.addEventListener("touchend", () => {
   isDrawing = false;
 });
+
+// Function to update canvas dimensions based on media queries
+function updateCanvasSize() {
+  let screenWidth = window.innerWidth;
+  if (screenWidth <= 400) {
+    canvas.width = 350;
+    canvas.height = 475;
+  } else if (screenWidth <= 893 && window.innerHeight < window.innerWidth) {
+    canvas.width = 700;
+    canvas.height = 170;
+  } else {
+    // Add additional conditions or default canvas size here if needed
+  }
+}
+
+// Call the function to initially set canvas size
+updateCanvasSize();
+
+// Listen for window resize event to dynamically update canvas size
+window.addEventListener("resize", updateCanvasSize);
+
