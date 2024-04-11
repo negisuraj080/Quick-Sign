@@ -93,7 +93,7 @@ function calculateCanvasCoordinates(event) {
   };
 }
 
-// Consolidated touch event listeners
+//touch event
 canvas.addEventListener("touchstart", (event) => {
   isDrawing = true;
   let { x, y } = calculateCanvasCoordinates(event.touches[0]);
@@ -127,7 +127,7 @@ function updateCanvasSize() {
     canvas.width = 700;
     canvas.height = 170;
   } else {
-    // Add additional conditions or default canvas size here if needed
+    
   }
 }
 
@@ -136,4 +136,3 @@ updateCanvasSize();
 
 // Listen for window resize event to dynamically update canvas size
 window.addEventListener("resize", updateCanvasSize);
-
