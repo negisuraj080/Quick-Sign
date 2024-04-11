@@ -83,31 +83,32 @@ retrieveButton.addEventListener("click", () => {
 
 
 // Consolidated touch event listeners
-// Calculate the offset of the canvas relative to the window
-const rect = canvas.getBoundingClientRect();
-const offsetX = rect.left;
-const offsetY = rect.top;
+// Function to calculate offsets based on current canvas dimensions and positioning
+function calculateOffsets(event) {
+  let rect = canvas.getBoundingClientRect();
+  let offsetX = rect.left + window.pageXOffset;
+  let offsetY = rect.top + window.pageYOffset;
+  return {
+    x: event.clientX - offsetX,
+    y: event.clientY - offsetY
+  };
+}
 
-// Event listeners for touch events
+// Consolidated touch event listeners
 canvas.addEventListener("touchstart", (event) => {
   isDrawing = true;
-  let rect = canvas.getBoundingClientRect();
-  lastX = event.touches[0].clientX - rect.left;
-  lastY = event.touches[0].clientY - rect.top;
+  let { x, y } = calculateOffsets(event.touches[0]);
+  lastX = x;
+  lastY = y;
 });
 
 canvas.addEventListener("touchmove", (event) => {
   if (isDrawing) {
-    let touch = event.touches[0];
-    let rect = canvas.getBoundingClientRect();
-    let x = touch.clientX - rect.left;
-    let y = touch.clientY - rect.top;
-
+    let { x, y } = calculateOffsets(event.touches[0]);
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
     ctx.lineTo(x, y);
     ctx.stroke();
-
     lastX = x;
     lastY = y;
   }
@@ -116,5 +117,3 @@ canvas.addEventListener("touchmove", (event) => {
 canvas.addEventListener("touchend", () => {
   isDrawing = false;
 });
-
-
